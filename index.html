@@ -1,132 +1,150 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Josefin+Sans">
-    <style>
-        h1 {
-            font-family: Josefin Sans, Futura, Helvetica, Ariel, sans-serif;
-            font-size: 50pt;
-            text-align: center;
-            letter-spacing: 2.5pt;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michal Nylec | Software Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        body {
-            font-family: Roboto, Arial, sans-serif;
-            background-color: lightgrey;
-            margin-left: 70pt;
-            margin-right: 70pt;
-            padding-top: 30pt;
-        }
-    </style>
-    <title>Michal Nylec</title>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --primary: #4c6ef5;
+      --accent: #22b8cf;
+      --text: #343a40;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --primary: #7fafff;
+      --accent: #5cd3e5;
+      --text: #e0e0e0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; line-height: 1.6; scroll-behavior: smooth; transition: background .3s, color .3s; }
+
+    /* Link styling */
+    a { color: var(--accent); text-decoration: none; transition: color .3s; }
+    a:hover { color: var(--primary); text-decoration: underline; }
+
+    header { background: var(--card); padding: 2rem 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; position: sticky; top: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; }
+    .theme-toggle { position: absolute; top: 1rem; right: 1rem; background: none; border: 2px solid var(--accent); padding: 0.3rem 0.6rem; border-radius: 6px; cursor: pointer; color: var(--accent); font-weight: bold; transition: background .3s, color .3s; }
+    .theme-toggle:hover { background: var(--accent); color: #fff; }
+    header h1 { font-size: 2.5rem; color: var(--primary); }
+    header p { margin-top: 0.5rem; font-size: 1.2rem; }
+    nav { margin-top: 1rem; }
+    nav a { margin: 0 0.5rem; font-weight: 700; }
+
+    section { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: background .3s, box-shadow .3s; }
+    h2 { margin-bottom: 1rem; color: var(--primary); font-size: 1.8rem; }
+    ul { list-style: none; }
+    ul li { margin-bottom: 0.75rem; padding-left: 1.2rem; position: relative; }
+    ul li:before { content: '👉'; position: absolute; left: 0; }
+    .sub-list { margin-top: 0.5rem; padding-left: 1.5rem; }
+    .sub-list li:before { content: '•'; left: -0.5rem; }
+
+    /* Button styling */
+    a.button { display: inline-block; margin-top: 1rem; padding: 0.6rem 1.2rem; background: var(--accent); color: white; text-decoration: none; border-radius: 8px; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: background .3s, color .3s; }
+    a.button:hover { background: var(--primary); }
+    /* Dark mode button override for extra contrast */
+    [data-theme="dark"] a.button { background: var(--primary); }
+
+    footer { text-align: center; padding: 1.5rem 0; font-size: 0.9rem; color: #868e96; }
+    .vision { font-style: italic; text-align: center; margin-bottom: 1rem; }
+  </style>
 </head>
 <body>
+  <header>
+    <button class="theme-toggle" id="themeToggle">Dark Mode</button>
+    <h1>Michal Nylec</h1>
+    <p>Backend & Full-Stack Developer | DVLA & Legal Tech Aficionado 🚀</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Tech Skills</a>
+      <a href="#vision">Vision</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<h1>
-    Michal Nylec
-</h1>
+  <section id="about" class="card">
+    <h2>About Me</h2>
+    <p>Hey there! I'm Michal, a software dev based in Swansea, Wales. I modernize digital services for millions – currently at the <strong>Driver and Vehicle Licensing Agency (DVLA)</strong>, previously in legal tech at <strong>Hoowla</strong>. I live for building scalable backends, killer UX, and clean code.</p>
+  </section>
 
-<p>
-    A 2nd Year Computer Science student at Swansea University, and aspiring software engineer.
-    Passionate about programming, good design, and acquiring new skills & knowledge.<br><br>
+  <section id="experience" class="card">
+    <h2>Experience</h2>
+    <ul>
+      <li><strong>Backend Software Developer</strong> @ DVLA (May 2025 – Present)<br>
+        <ul class="sub-list">
+          <li>Modernising digital services used by millions of UK motorists</li>
+          <li>Building backend systems in TypeScript with AWS Step Functions, Serverless Framework & DynamoDB</li>
+          <li>Hybrid role in Swansea, Wales, UK</li>
+        </ul>
+      </li>
+      <li><strong>Full Stack Developer</strong> @ Hoowla (Jun 2022 – May 2025)<br>
+        <ul class="sub-list">
+          <li>👨‍💻 PHP Web & React Native App for leading legal case management SaaS</li>
+          <li>Led full-stack projects focusing on scalability, performance & integration</li>
+          <li>Independently built a production-grade passport/ID checker app with NFC scanning using React Native (TS) & Swift/Java</li>
+          <li>Managed complex data migrations & shipped accounting features under tight deadlines</li>
+          <li>Explored Serverless (AWS Lambda) & microservices with Python (Flask) & Go</li>
+          <li>Deployed to Heroku & AWS via CloudFormation & Serverless Framework</li>
+          <li>🔗 <a href="https://apps.apple.com/us/app/hoowla-id-check/id6446697173" target="_blank">Hoowla ID Check on App Store</a></li>
+          <li>Hybrid role in Swansea, Wales, UK</li>
+        </ul>
+      </li>
+      <li><strong>Teaching Assistant</strong> @ Swansea University (Sep 2021 – Apr 2022)<br>
+        <ul class="sub-list">
+          <li>Guided students through Haskell functional programming and Java unit testing classes.</li>
+        </ul>
+      </li>
+    </ul>
+    <a class="button" href="https://github.com/nylecm" target="_blank">Check my GitHub</a>
+  </section>
 
-    <a href="https://github.com/nylecm">My GitHub Profile!</a>
-</p>
+  <section id="skills" class="card">
+    <h2>Tech Skills</h2>
+    <ul>
+      <li>Languages: TypeScript/JavaScript, Go, PHP, Python, SQL</li>
+      <li>DevOps & Cloud: Docker & AWS</li>
+      <li>Databases: MariaDB, DynamoDB, and MongoDB</li>
+      <li>Tools: Git, Drone CI/CD, Jira</li>
+    </ul>
+  </section>
 
-<h2>
-    Education:
-</h2>
+  <section id="vision" class="card">
+    <h2>Life Vision</h2>
+    <p class="vision">"I build services for millions building scalable backends, killer UX, and clean code so everyone gets stuff done faster." 🚀</p>
+  </section>
 
-<p>
-    2019 - 2022: Computer Science BSc at Swansea University.<br>
-</p>
+  <section id="contact" class="card">
+    <h2>Contact & Links</h2>
+    <ul>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/michal-nylec-b06a9919a" target="_blank">linkedin.com/in/michal-nylec-b06a9919a</a></li>
+      <li>Portfolio: <a href="https://nylecm.github.io/" target="_blank">nylecm.github.io</a></li>
+    </ul>
+  </section>
 
-<ul>
-    <li>Predicted 1st class honours, average grade 87%.</li>
-</ul>
+  <footer>
+    <p>Built with code, coffee, and curiosity ☕️👨‍💻</p>
+  </footer>
 
-<h2>
-    Work Experience:
-</h2>
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    toggleBtn.textContent = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
 
-<p>
-    2021 - 2022: Teaching Assistant at Swansea University.<br>
-</p>
-
-<ul>
-    <li>Responsible for running Computer Science practical classes, marking work, providing feedback, and helping students.</li>
-</ul>
-
-<h2>
-    My Skills:
-</h2>
-
-<ul>
-    <li>Java, and Android App Development.</li>
-    <li>Linux command-line, and BASH.</li>
-    <li>Git and GitHub.</li>
-    <li>HTML & CSS.</li>
-    <li>Development environments including Intellij IDEA, Android Studio, Visual Studio, and Visual Studio Code.</li>
-    <li>Computer Science Theory.</li>
-</ul>
-
-<h2>
-    Projects:
-</h2>
-
-<h2>
-    Tic Tac Toe Game:
-</h2>
-
-<p>
-    A fun tic-tac-toe game written in Java, which has two unbeatable AI players. It features both a GUI
-    and command-line interface.
-    <br><br><a href="https://github.com/nylecm/TicTacToe">Click here to view on GitHub!</a>
-</p>
-
-<h3>
-    Skills:
-</h3>
-
-<ul>
-    <li>Java, and using object oriented programming solve problems.</li>
-    <li>Writing clear, optimised and modular code.</li>
-    <li>Algorithms to check the board for wins, and to model a perfect 1st & 2nd player.</li>
-    <li>GUI programming using Swing API, and some concurrent programming.</li>
-    <li>Git version control system & GitHub.</li>
-    <li>Intellij IDEA IDE.</li>
-</ul>
-
-<h2>
-    Quadratic Equation Graphing Calculator App:
-</h2>
-
-<p>
-    An Android app developed in Java that calculates the x axis intersection, and the vertex of a quadratic expression,
-    as well as drawing a graph for the expression.
-    <br><br><a href="https://github.com/nylecm/Quadratic_App">Click here to view on GitHub!</a>
-</p>
-
-<h3>
-    Skills:
-</h3>
-
-<ul>
-    <li>Java programming language, object-oriented programming.</li>
-    <li>Stack data structure used for undo/redo functionality.</li>
-    <li>User interface design in Android Studio using a constraint layout & XML.</li>
-    <li>Use of external library, GraphView to draw the graph.</li>
-    <li>Git version control system & GitHub.</li>
-    <li>Android Studio IDE.</li>
-</ul>
-
-<h3>
-    Picture:
-</h3>
-
-<img src="https://i.ibb.co/GdTTqp7/Screenshot-1597254693.png" height="600" width="300"
-     alt="Picture of Quadratic Equation App">
+    toggleBtn.addEventListener('click', () => {
+      const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggleBtn.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    });
+  </script>
 </body>
 </html>
