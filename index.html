@@ -4,6 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Michal Nylec | Software Developer | Swansea, UK</title>
+  <script>
+    (function () {
+      try {
+        const getCookie = (name) => {
+          const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+          return match ? decodeURIComponent(match[1]) : null;
+        };
+        const prefersDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        const preference = getCookie('themePreference');
+        const theme = preference === 'dark'
+          ? 'dark'
+          : preference === 'light'
+            ? 'light'
+            : prefersDarkQuery && prefersDarkQuery.matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.dataset.themeSource = preference ? 'manual' : 'auto';
+      } catch (err) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.dataset.themeSource = 'auto';
+      }
+    })();
+  </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -36,8 +60,16 @@
     }
 
     header { background: var(--card); padding: 2rem 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; position: sticky; top: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; }
-    .theme-toggle { position: absolute; top: 1rem; right: 1rem; background: none; border: 2px solid var(--accent); padding: 0.3rem 0.6rem; border-radius: 6px; cursor: pointer; color: var(--accent); font-weight: bold; transition: background .3s, color .3s; }
-    .theme-toggle:hover { background: var(--accent); color: #fff; }
+    .theme-menu { position: absolute; top: 1rem; right: 1rem; display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+    .theme-menu__toggle { background: none; border: 2px solid var(--accent); padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer; color: var(--accent); font-weight: bold; transition: background .3s, color .3s; display: flex; align-items: center; gap: 0.35rem; }
+    .theme-menu__toggle:hover,
+    .theme-menu__toggle:focus-visible { background: var(--accent); color: #fff; outline: none; }
+    .theme-menu__options { position: absolute; top: calc(100% + 0.35rem); right: 0; min-width: 180px; background: var(--card); border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); padding: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; }
+    .theme-menu.open .theme-menu__options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+    .theme-menu__option { border: none; background: transparent; text-align: left; padding: 0.45rem 0.6rem; border-radius: 6px; color: var(--text); cursor: pointer; font-weight: 600; transition: background .2s, color .2s; }
+    .theme-menu__option:hover,
+    .theme-menu__option:focus-visible { background: rgba(76,110,245,0.12); color: var(--primary); outline: none; }
+    .theme-menu__option.is-active { background: rgba(76,110,245,0.18); color: var(--primary); }
     header h1 { font-size: 2.5rem; color: var(--primary); }
     header p { margin-top: 0.5rem; font-size: 1.2rem; }
     nav { margin-top: 1rem; }
@@ -64,12 +96,23 @@
 </head>
 <body>
   <header>
-    <button class="theme-toggle" id="themeToggle">Dark Mode</button>
+    <div class="theme-menu" id="themeMenu">
+      <button class="theme-menu__toggle" id="themeMenuButton" type="button" aria-haspopup="true" aria-expanded="false">
+        Theme:
+        <span id="themeMenuLabel">System Default</span>
+      </button>
+      <div class="theme-menu__options" id="themeMenuOptions" role="menu" aria-label="Theme options">
+        <button class="theme-menu__option" type="button" data-theme-choice="dark" role="menuitem">Always Dark</button>
+        <button class="theme-menu__option" type="button" data-theme-choice="light" role="menuitem">Always Light</button>
+        <button class="theme-menu__option" type="button" data-theme-choice="system" role="menuitem">System Default</button>
+      </div>
+    </div>
     <h1>Michal Nylec</h1>
     <nav>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Tech Skills</a>
+      <a href="#education">Education</a>
       <a href="#vision">Vision</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -78,6 +121,7 @@
   <section id="about" class="card">
     <h2>About Me</h2>
     <p>Hey there! 👋 I'm Michal, a software dev based in Swansea, Wales. I modernize digital services for millions – currently at the <strong>Driver and Vehicle Licensing Agency (DVLA)</strong>, previously in legal tech at <strong>Hoowla</strong>. I live for building scalable backends, killer UX, and clean code.</p>
+    <a class="button" href="https://github.com/nylecm" target="_blank">Check my GitHub</a>
   </section>
 
   <section id="experience" class="card">
@@ -108,8 +152,8 @@
         </ul>
       </li>
     </ul>
-    <a class="button" href="https://github.com/nylecm" target="_blank">Check my GitHub</a>
   </section>
+
 
   <section id="skills" class="card">
     <h2>Tech Skills</h2>
@@ -118,6 +162,17 @@
       <li>DevOps & Cloud: Docker & AWS</li>
       <li>Databases: MariaDB, DynamoDB, and MongoDB</li>
       <li>Tools: Git, Drone CI/CD, Jira, Leveraging AI (when Sensible)</li>
+    </ul>
+  </section>
+
+  <section id="education" class="card">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>BSc Computer Science </strong> @ Swansea University (Sep 2019 – May 2022)<br>
+        <ul class="sub-list">
+          <li>Achived 1<sup>st</sup> class honours 👨‍🎓</li>
+        </ul>
+      </li>
     </ul>
   </section>
 
@@ -139,16 +194,125 @@
   </footer>
 
   <script>
-    const toggleBtn = document.getElementById('themeToggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    toggleBtn.textContent = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    const menu = document.getElementById('themeMenu');
+    const menuToggle = document.getElementById('themeMenuButton');
+    const menuOptions = document.getElementById('themeMenuOptions');
+    const menuLabel = document.getElementById('themeMenuLabel');
+    const prefersDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
-    toggleBtn.addEventListener('click', () => {
-      const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    const getCookie = (name) => {
+      const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    };
+    const setCookie = (name, value) => {
+      document.cookie = name + '=' + encodeURIComponent(value) + ';path=/;max-age=31536000';
+    };
+    const deleteCookie = (name) => {
+      document.cookie = name + '=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    };
+
+    const preferenceText = {
+      dark: 'Always Dark',
+      light: 'Always Light',
+      system: 'System Default',
+    };
+
+    const resolveTheme = (preference) => {
+      if (preference === 'dark' || preference === 'light') return preference;
+      if (prefersDarkQuery) {
+        return prefersDarkQuery.matches ? 'dark' : 'light';
+      }
+      return 'light';
+    };
+
+    const updateLabel = (preference) => {
+      const key = preference === 'dark' || preference === 'light' ? preference : 'system';
+      menuLabel.textContent = preferenceText[key];
+      menuOptions.querySelectorAll('.theme-menu__option').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.themeChoice === key);
+      });
+    };
+
+    const applyTheme = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      toggleBtn.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    };
+
+    let systemListenerAttached = false;
+    const systemThemeListener = (event) => {
+      if (!getCookie('themePreference')) {
+        applyTheme(event.matches ? 'dark' : 'light');
+      }
+    };
+
+    const manageSystemListener = (enable) => {
+      if (!prefersDarkQuery) return;
+      if (enable && !systemListenerAttached) {
+        if (prefersDarkQuery.addEventListener) {
+          prefersDarkQuery.addEventListener('change', systemThemeListener);
+        } else if (prefersDarkQuery.addListener) {
+          prefersDarkQuery.addListener(systemThemeListener);
+        }
+        systemListenerAttached = true;
+      } else if (!enable && systemListenerAttached) {
+        if (prefersDarkQuery.removeEventListener) {
+          prefersDarkQuery.removeEventListener('change', systemThemeListener);
+        } else if (prefersDarkQuery.removeListener) {
+          prefersDarkQuery.removeListener(systemThemeListener);
+        }
+        systemListenerAttached = false;
+      }
+    };
+
+    let activePreference = getCookie('themePreference') || 'system';
+
+    const applyPreference = (preference, persist = false) => {
+      const normalized = preference === 'dark' || preference === 'light' ? preference : 'system';
+      if (persist) {
+        if (normalized === 'system') {
+          deleteCookie('themePreference');
+        } else {
+          setCookie('themePreference', normalized);
+        }
+      }
+      activePreference = normalized;
+      const theme = resolveTheme(normalized);
+      document.documentElement.dataset.themeSource = normalized === 'system' ? 'auto' : 'manual';
+      applyTheme(theme);
+      updateLabel(normalized);
+      manageSystemListener(normalized === 'system');
+    };
+
+    applyPreference(activePreference);
+
+    menuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isOpen = menu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!menu.contains(event.target)) {
+        menu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        menu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.focus();
+      }
+    });
+
+    menuOptions.addEventListener('click', (event) => {
+      const choiceButton = event.target.closest('[data-theme-choice]');
+      if (!choiceButton) return;
+      const choice = choiceButton.dataset.themeChoice;
+      applyPreference(choice, true);
+      menu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.focus();
     });
   </script>
 </body>
